@@ -13,10 +13,10 @@ import {
 	MenubarTrigger,
 } from "@/components/ui/menubar";
 import { Panel } from "@xyflow/react";
-import MenuBarOption from "./menu-bar-option";
+import MenuBarOption from "./panel-option";
 import { useMindMapStore } from "@/store/store";
 
-export function MenubarBottomMiddle() {
+export default function PanelBottomMiddle() {
 	const selectedNode = useMindMapStore((state) => state.selectedNode);
 	return (
 		<Panel position="bottom-center">
