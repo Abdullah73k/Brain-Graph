@@ -22,6 +22,26 @@ export const useMindMapStore = create<MindMapStore>()(
 				setIsChatBarOpen() {
 					set((state) => ({ isChatBarOpen: !state.isChatBarOpen }));
 				},
+				createSubtopicNode() {
+					const state = get();
+					if (state.workspaces.length === 0) return;
+					const activeWorkspace = activeWorkspaceHelper(state);
+					if (!activeWorkspace) return;
+					const nodesSnapshot = activeWorkspace.nodes;
+					const newSubtopicNode: AppNode = {
+						id: crypto.randomUUID(),
+						type: "subtopic",
+						position: { x: 0, y: 0 },
+						data: { title: "New Subtopic" },
+					};
+					const updatedNodes = [...nodesSnapshot, newSubtopicNode];
+					set({
+						workspaces: updateWorkspaceHelper(state, {
+							...activeWorkspace,
+							nodes: updatedNodes,
+						}),
+					});
+				},
 				createWorkspace() {
 					const newWorkspaceId = crypto.randomUUID();
 					set((state) => ({
