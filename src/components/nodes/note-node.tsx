@@ -20,7 +20,7 @@ import { cn } from "@/lib/utils";
  *
  * Data contract: Uses data.title and data.description (both preserved and always displayed)
  */
-export function NoteNodeComponent({ data, selected }: NodeProps<NoteNode>) {
+export function NoteNode({ data, selected }: NodeProps<NoteNode>) {
 	const [title, setTitle] = useState(data.title);
 	const [description, setDescription] = useState(data.description);
 

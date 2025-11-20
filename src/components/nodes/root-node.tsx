@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils";
  *
  * Data contract: Uses data.title (unchanged)
  */
-export function RootNodeComponent({ data, selected }: NodeProps<RootNode>) {
+export function RootNode({ data, selected }: NodeProps<RootNode>) {
 	const [title, setTitle] = useState(data.title);
 
 	return (

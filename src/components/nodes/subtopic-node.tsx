@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils";
  *
  * Data contract: Uses data.title (preserved)
  */
-export function SubtopicNodeComponent({
+export function SubtopicNode({
 	data,
 	selected,
 }: NodeProps<SubtopicNode>) {
