@@ -15,6 +15,7 @@ export type MindMapActions = {
 	setIsChatBarOpen: () => void;
 	createWorkspace: () => void;
 	deleteWorkspace: (id: string) => void;
+	deleteNode: (id: string) => void;
 
 	setActiveWorkspace: (id: string) => void;
 	createNoteNode: () => void;
