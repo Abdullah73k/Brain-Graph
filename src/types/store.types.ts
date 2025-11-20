@@ -17,6 +17,7 @@ export type MindMapActions = {
 	deleteWorkspace: (id: string) => void;
 
 	setActiveWorkspace: (id: string) => void;
+	createNoteNode: () => void;
 	createSubtopicNode: () => void;
 	onNodesChangeForActive: (changes: NodeChange<AppNode>[]) => void;
 	onEdgesChangeForActive: (changes: EdgeChange<Edge>[]) => void;
