@@ -10,6 +10,7 @@ import {
 	useIsChatBarOpen,
 	useMindMapActions,
 } from "@/store/hooks";
+import { edgeTypes } from "@/lib/edge-types-map";
 
 export default function InfinityBoard() {
 	const {
@@ -51,6 +52,7 @@ export default function InfinityBoard() {
 					nodes={nodes}
 					edges={edges}
 					nodeTypes={nodeTypes}
+					edgeTypes={edgeTypes}
 					onNodesChange={onNodesChange}
 					onEdgesChange={onEdgesChange}
 					onConnect={onConnect}
