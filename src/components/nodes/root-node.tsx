@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { NodeProps } from "@xyflow/react";
+import { Handle, Position, type NodeProps } from "@xyflow/react";
 import type { RootNode } from "@/types/nodes";
 import { Input } from "@/components/ui/input";
 
@@ -32,6 +32,53 @@ export function RootNodeComponent({ data, selected }: NodeProps<RootNode>) {
 				}}
 				className="w-full bg-transparent px-0 text-center text-base font-semibold text-gray-800 border-none focus:outline-none focus:ring-0"
 				aria-label="Root topic title"
+			/>
+			{/* Top handles */}
+			<Handle type="source" position={Position.Top} id="top-1" />
+			<Handle
+				type="source"
+				position={Position.Top}
+				id="top-2"
+				style={{ left: "70%" }}
+			/>
+			<Handle
+				type="source"
+				position={Position.Top}
+				id="top-3"
+				style={{ right: "70%" }}
+			/>
+
+			{/* Right handles */}
+			<Handle type="source" position={Position.Right} id="right-1" />
+			<Handle
+				type="source"
+				position={Position.Right}
+				id="right-2"
+				style={{ top: "70%" }}
+			/>
+
+			{/* Bottom handles */}
+			<Handle type="source" position={Position.Bottom} id="bottom-1" />
+			<Handle
+				type="source"
+				position={Position.Bottom}
+				id="bottom-2"
+				style={{ left: "70%" }}
+			/>
+			<Handle
+				type="source"
+				position={Position.Bottom}
+				id="bottom-3"
+				style={{ right: "70%" }}
+			/>
+
+			{/* Left handles */}
+			<Handle type="source" position={Position.Left} id="left-1" />
+			<Handle
+				type="source"
+				position={Position.Left}
+				id="left-2"
+				style={{ top: "70%" }}
 			/>
 		</div>
 	);
