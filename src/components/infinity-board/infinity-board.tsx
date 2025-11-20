@@ -1,60 +1,52 @@
 "use client";
 
 import { nodeTypes } from "@/lib/node-types-map";
-import { useMindMapActions, useMindMapStore } from "@/store/store";
-import { AppNode } from "@/types/nodes";
-import {
-	ReactFlow,
-	useNodesState,
-	useEdgesState,
-	OnConnect,
-	addEdge,
-	ReactFlowProvider,
-} from "@xyflow/react";
+import { ReactFlow, ReactFlowProvider } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import InfinityBoardConfig from "./infinity-board-config";
-
-const initialNodes: AppNode[] = [
-	{
-		id: "root-1",
-		type: "root",
-		position: { x: 0, y: 0 },
-		data: { title: "Main Topic of This Mindspace" },
-	},
-	{
-		id: "sub-1",
-		type: "subtopic",
-		position: { x: 300, y: 0 },
-		data: { title: "First Subtopic" },
-	},
-	{
-		id: "note-1",
-		type: "note",
-		position: { x: 300, y: 200 },
-		data: { title: "Random Note", description: "This is just a free note." },
-	},
-];
-
-const initialEdges = [
-	{
-		id: "root-1-sub-1",
-		source: "root-1",
-		target: "sub-1",
-	},
-];
+import {
+	useGetActiveWorkspace,
+	useGetSelectedNode,
+	useIsChatBarOpen,
+	useMindMapActions,
+} from "@/store/hooks";
 
 export default function InfinityBoard() {
-	const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-	const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-	const { setSelectedNode } = useMindMapActions();
-	const selectedNode = useMindMapStore((state) => state.selectedNode);
+	const {
+		setSelectedNode,
+		onConnectForActive,
+		onNodesChangeForActive,
+		onEdgesChangeForActive,
+	} = useMindMapActions();
+	const selectedNode = useGetSelectedNode();
+	const isChatBarOpen = useIsChatBarOpen();
 
-	const onConnect: OnConnect = (params) =>
-		setEdges((edges) => addEdge(params, edges));
+	const activeWorkspace = useGetActiveWorkspace();
+	const nodes = activeWorkspace?.nodes || [];
+	const edges = activeWorkspace?.edges || [];
+	const onNodesChange = onNodesChangeForActive;
+	const onEdgesChange = onEdgesChangeForActive;
+	const onConnect = onConnectForActive;
+
+	if (!activeWorkspace) {
+		return (
+			<div className="flex justify-center items-center">
+				<p className="text-mono text-pretty text-purple-500 text-lg">
+					Select or create a workspace to get started!
+				</p>
+			</div>
+		);
+	}
 
 	return (
 		<ReactFlowProvider>
-			<div style={{ width: "100vw", height: "100vh" }}>
+			<div
+				className="m-auto"
+				style={{
+					width: `${isChatBarOpen ? "50dvw" : "80dvw"}`,
+					height: "100dvh",
+				}}
+			>
 				<ReactFlow
 					nodes={nodes}
 					edges={edges}
@@ -67,6 +59,7 @@ export default function InfinityBoard() {
 						const selectedNode = nodes[0] ? nodes[0] : null;
 						setSelectedNode(selectedNode);
 					}}
+					fitViewOptions={{ padding: 0.2 }}
 					fitView
 				>
 					<InfinityBoardConfig selectedNode={selectedNode} />

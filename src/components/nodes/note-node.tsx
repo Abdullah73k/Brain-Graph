@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { NodeProps } from "@xyflow/react";
+import { Handle, Position, type NodeProps } from "@xyflow/react";
 import type { NoteNode } from "@/types/nodes";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -43,6 +43,15 @@ export function NoteNodeComponent({ data, selected }: NodeProps<NoteNode>) {
 					className="min-h-[80px] max-h-[160px] w-full resize-none bg-transparent text-xs leading-snug text-orange-900 border-none focus:outline-none focus:ring-0"
 					aria-label="Note description"
 				/>
+
+				<Handle type="source" position={Position.Right} id="note-right" />
+				<Handle type="source" position={Position.Top} id="note-top" />
+				<Handle type="source" position={Position.Bottom} id="note-bottom" />
+				<Handle type="source" position={Position.Left} id="note-left" />
+				<Handle type="target" position={Position.Right} id="note-right-target" />
+				<Handle type="target" position={Position.Top} id="note-top-target" />
+				<Handle type="target" position={Position.Bottom} id="note-bottom-target" />
+				<Handle type="target" position={Position.Left} id="note-left-target" />
 			</div>
 		</Card>
 	);

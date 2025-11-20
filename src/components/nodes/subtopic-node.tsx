@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { NodeProps } from "@xyflow/react";
+import { Handle, Position, type NodeProps } from "@xyflow/react";
 import type { SubtopicNode } from "@/types/nodes";
 import { Input } from "@/components/ui/input";
 
@@ -31,6 +31,15 @@ export function SubtopicNodeComponent({
 				className="w-full bg-transparent text-center text-sm font-semibold text-green-900 border-none focus:outline-none focus:ring-0"
 				aria-label="Subtopic title"
 			/>
+			<Handle type="source" position={Position.Right} id="subtopic-right" />
+			<Handle type="source" position={Position.Top} id="subtopic-top" />
+			<Handle type="source" position={Position.Bottom} id="subtopic-bottom" />
+			<Handle type="source" position={Position.Left} id="subtopic-left" />
+
+			<Handle type="target" position={Position.Right} id="subtopic-right-target" />
+			<Handle type="target" position={Position.Top} id="subtopic-top-target" />
+			<Handle type="target" position={Position.Bottom} id="subtopic-bottom-target" />
+			<Handle type="target" position={Position.Left} id="subtopic-left-target" />
 		</div>
 	);
 }

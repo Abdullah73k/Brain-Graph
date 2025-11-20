@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { NodeProps } from "@xyflow/react";
+import { Handle, Position, type NodeProps } from "@xyflow/react";
 import type { RootNode } from "@/types/nodes";
 import { Input } from "@/components/ui/input";
 
@@ -32,6 +32,29 @@ export function RootNodeComponent({ data, selected }: NodeProps<RootNode>) {
 				}}
 				className="w-full bg-transparent px-0 text-center text-base font-semibold text-gray-800 border-none focus:outline-none focus:ring-0"
 				aria-label="Root topic title"
+			/>
+			{/* Top handles */}
+			<Handle type="source" position={Position.Top} id="root-top" />
+
+			{/* Right handles */}
+			<Handle type="source" position={Position.Right} id="root-right" />
+			<Handle
+				type="source"
+				position={Position.Right}
+				id="root-right-2"
+				style={{ top: "70%" }}
+			/>
+
+			{/* Bottom handles */}
+			<Handle type="source" position={Position.Bottom} id="root-bottom" />
+
+			{/* Left handles */}
+			<Handle type="source" position={Position.Left} id="root-left" />
+			<Handle
+				type="source"
+				position={Position.Left}
+				id="root-left-2"
+				style={{ top: "70%" }}
 			/>
 		</div>
 	);
