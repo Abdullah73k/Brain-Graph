@@ -12,16 +12,12 @@ export default function PanelBottomMiddle() {
 	return (
 		<Panel position="bottom-center">
 			<Menubar className="py-4">
-				{selectedNode && selectedNode.type === "note" ? null : (
-					<>
-						<MenubarOption option="Add Handle" />
-						<MenubarOption option="Delete Handle" />
-					</>
+				{selectedNode && (
+					<MenubarOption
+						option="Delete Node"
+						onClick={() => deleteNode(selectedNode.id)}
+					/>
 				)}
-				<MenubarOption
-					option="Delete Node"
-					onClick={() => deleteNode(selectedNode!.id)}
-				/>
 			</Menubar>
 		</Panel>
 	);
