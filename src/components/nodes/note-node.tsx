@@ -44,14 +44,14 @@ export function NoteNodeComponent({ data, selected }: NodeProps<NoteNode>) {
 					aria-label="Note description"
 				/>
 
-				<Handle type="source" position={Position.Right} id="right-main" />
-				<Handle type="source" position={Position.Top} id="top" />
-				<Handle type="source" position={Position.Bottom} id="bottom" />
-				<Handle type="source" position={Position.Left} id="left-1" />
-				<Handle type="target" position={Position.Right} id="right-main-target" />
-				<Handle type="target" position={Position.Top} id="top-target" />
-				<Handle type="target" position={Position.Bottom} id="bottom-target" />
-				<Handle type="target" position={Position.Left} id="left-1-target" />
+				<Handle type="source" position={Position.Right} id="note-right" />
+				<Handle type="source" position={Position.Top} id="note-top" />
+				<Handle type="source" position={Position.Bottom} id="note-bottom" />
+				<Handle type="source" position={Position.Left} id="note-left" />
+				<Handle type="target" position={Position.Right} id="note-right-target" />
+				<Handle type="target" position={Position.Top} id="note-top-target" />
+				<Handle type="target" position={Position.Bottom} id="note-bottom-target" />
+				<Handle type="target" position={Position.Left} id="note-left-target" />
 			</div>
 		</Card>
 	);

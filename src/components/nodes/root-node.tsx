@@ -34,50 +34,26 @@ export function RootNodeComponent({ data, selected }: NodeProps<RootNode>) {
 				aria-label="Root topic title"
 			/>
 			{/* Top handles */}
-			<Handle type="source" position={Position.Top} id="top-1" />
-			<Handle
-				type="source"
-				position={Position.Top}
-				id="top-2"
-				style={{ left: "70%" }}
-			/>
-			<Handle
-				type="source"
-				position={Position.Top}
-				id="top-3"
-				style={{ right: "70%" }}
-			/>
+			<Handle type="source" position={Position.Top} id="root-top" />
 
 			{/* Right handles */}
-			<Handle type="source" position={Position.Right} id="right-1" />
+			<Handle type="source" position={Position.Right} id="root-right" />
 			<Handle
 				type="source"
 				position={Position.Right}
-				id="right-2"
+				id="root-right-2"
 				style={{ top: "70%" }}
 			/>
 
 			{/* Bottom handles */}
-			<Handle type="source" position={Position.Bottom} id="bottom-1" />
-			<Handle
-				type="source"
-				position={Position.Bottom}
-				id="bottom-2"
-				style={{ left: "70%" }}
-			/>
-			<Handle
-				type="source"
-				position={Position.Bottom}
-				id="bottom-3"
-				style={{ right: "70%" }}
-			/>
+			<Handle type="source" position={Position.Bottom} id="root-bottom" />
 
 			{/* Left handles */}
-			<Handle type="source" position={Position.Left} id="left-1" />
+			<Handle type="source" position={Position.Left} id="root-left" />
 			<Handle
 				type="source"
 				position={Position.Left}
-				id="left-2"
+				id="root-left-2"
 				style={{ top: "70%" }}
 			/>
 		</div>
