@@ -1,7 +1,7 @@
 import { UIMessage } from "ai";
 import { AppNode } from "./nodes";
 import { Edge, NodeChange, EdgeChange, Connection } from "@xyflow/react";
-import { RelationType } from "./egdes";
+import { RelationType } from "./edges";
 
 export type MindMapWorkspace = {
 	id: string;

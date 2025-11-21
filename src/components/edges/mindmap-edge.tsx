@@ -1,4 +1,4 @@
-import { type MindMapEdge } from "@/types/egdes";
+import { type MindMapEdge } from "@/types/edges";
 import { BezierEdge, EdgeProps } from "@xyflow/react";
 
 export const COLORS = {
@@ -8,7 +8,6 @@ export const COLORS = {
 	challenges: "#ef4444", // red
 	background: "#64748b", // slate/muted
 } as const;
-
 
 export default function MindMapEdge({
 	id,

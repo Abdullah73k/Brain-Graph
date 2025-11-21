@@ -8,7 +8,7 @@ import {
 import { Panel } from "@xyflow/react";
 import MenubarOption from "./menubar-option";
 import { useGetCurrentRelationType, useMindMapActions } from "@/store/hooks";
-import { relations } from "@/types/egdes";
+import { relations, RelationType } from "@/types/edges";
 
 export default function PanelTopMiddle() {
 	const currentRelationType = useGetCurrentRelationType();
@@ -25,9 +25,16 @@ export default function PanelTopMiddle() {
 						{relations.map((relation) => (
 							<MenubarItem
 								key={relation}
-								onClick={() => setCurrentRelationType(relation)}
+								onClick={() =>
+									setCurrentRelationType(relation.toLowerCase() as RelationType)
+								}
+								className={
+									currentRelationType === relation.toLowerCase()
+										? "bg-primary text-primary-foreground"
+										: ""
+								}
 							>
-								{relation}
+								{relation[0].toUpperCase() + relation.slice(1)}
 							</MenubarItem>
 						))}
 					</MenubarContent>

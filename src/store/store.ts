@@ -37,6 +37,7 @@ export const useMindMapStore = create<MindMapStore>()(
 						workspaces: updateWorkspaceHelper(state, {
 							...activeWorkspace,
 							nodes: updatedNodes,
+							edges: activeWorkspace.edges.filter((edge) => edge.source !== id && edge.target !== id),
 						}),
 					});
 				},
