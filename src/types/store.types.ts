@@ -18,6 +18,7 @@ export type MindMapActions = {
 	deleteWorkspace: (id: string) => void;
 	deleteNode: (id: string) => void;
 
+	closeChatBar: () => void;
 	setCurrentRelationType: (relation: RelationType) => void;
 	setActiveWorkspace: (id: string) => void;
 	createNoteNode: () => void;

@@ -21,7 +21,10 @@ export const useMindMapStore = create<MindMapStore>()(
 					set({ selectedNode: node });
 				},
 				setIsChatBarOpen() {
-					set((state) => ({ isChatBarOpen: !state.isChatBarOpen }));
+					set({ isChatBarOpen: true });
+				},
+				closeChatBar() {
+					set({ isChatBarOpen: false });
 				},
 				setCurrentRelationType(relation) {
 					set({ currentRelationType: relation });
@@ -37,7 +40,9 @@ export const useMindMapStore = create<MindMapStore>()(
 						workspaces: updateWorkspaceHelper(state, {
 							...activeWorkspace,
 							nodes: updatedNodes,
-							edges: activeWorkspace.edges.filter((edge) => edge.source !== id && edge.target !== id),
+							edges: activeWorkspace.edges.filter(
+								(edge) => edge.source !== id && edge.target !== id
+							),
 						}),
 					});
 				},

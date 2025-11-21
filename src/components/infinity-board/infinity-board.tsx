@@ -20,6 +20,8 @@ export default function InfinityBoard() {
 		onConnectForActive,
 		onNodesChangeForActive,
 		onEdgesChangeForActive,
+		setIsChatBarOpen,
+		closeChatBar,
 	} = useMindMapActions();
 	const selectedNode = useGetSelectedNode();
 	const isChatBarOpen = useIsChatBarOpen();
@@ -71,6 +73,11 @@ export default function InfinityBoard() {
 					onSelectionChange={({ nodes }) => {
 						const selectedNode = nodes[0] ? nodes[0] : null;
 						setSelectedNode(selectedNode);
+						if (selectedNode && selectedNode.type === "subtopic") {
+							setIsChatBarOpen();
+						} else {
+							closeChatBar();
+						}
 					}}
 					fitViewOptions={{ padding: 0.2 }}
 					fitView
