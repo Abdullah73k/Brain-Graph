@@ -27,8 +27,8 @@ const models = { name: "Gemini 2.0 Flash", value: "gemini-2.0-flash" };
 
 const Chat = () => {
 	const selectedNode = useGetSelectedNode();
-	const nodeId = selectedNode?.id 
-	console.log("Inf board: ", selectedNode!.id)
+	const nodeId = selectedNode?.id || '1'
+	console.log("Inf board: ", selectedNode?.id)
 	const [input, setInput] = useState("");
 	const [model, setModel] = useState<string>(models.value);
 	const [webSearch, setWebSearch] = useState(false);
