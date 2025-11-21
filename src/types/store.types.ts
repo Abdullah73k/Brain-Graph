@@ -9,6 +9,7 @@ export type MindMapWorkspace = {
 	nodes: AppNode[];
 	edges: Edge[];
 	messages: Record<string, UIMessage[]>;
+	nodeChatSummaries: Record<string, string>;
 };
 
 export type MindMapActions = {
@@ -18,6 +19,8 @@ export type MindMapActions = {
 	deleteWorkspace: (id: string) => void;
 	deleteNode: (id: string) => void;
 
+	createNodeChatSummary: (nodeId: string, summary: string) => void;
+	appendNodeChat: (nodeId: string, messages: UIMessage[]) => void;
 	closeChatBar: () => void;
 	setCurrentRelationType: (relation: RelationType) => void;
 	setActiveWorkspace: (id: string) => void;

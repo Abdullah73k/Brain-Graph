@@ -17,6 +17,7 @@ export const useMindMapStore = create<MindMapStore>()(
 				workspaces: [],
 				activeWorkspaceId: null,
 				currentRelationType: "background",
+				nodeChatSummaries: {},
 				actions: {
 					setSelectedNode(node) {
 						set({ selectedNode: node });
@@ -29,6 +30,23 @@ export const useMindMapStore = create<MindMapStore>()(
 					},
 					setCurrentRelationType(relation) {
 						set({ currentRelationType: relation });
+					},
+					createNodeChatSummary(nodeId, summary) {},
+					appendNodeChat(nodeId, messages) {
+						const state = get();
+						if (state.workspaces.length === 0) return;
+						const activeWorkspace = activeWorkspaceHelper(state);
+						if (!activeWorkspace) return;
+						const updatedWorkspace = {
+							...activeWorkspace,
+							messages: {
+								...activeWorkspace.messages,
+								[nodeId]: [...messages],
+							},
+						};
+						set({
+							workspaces: updateWorkspaceHelper(state, updatedWorkspace),
+						});
 					},
 					deleteNode(id) {
 						const state = get();
@@ -105,6 +123,7 @@ export const useMindMapStore = create<MindMapStore>()(
 									],
 									edges: [],
 									messages: {},
+									nodeChatSummaries: {},
 								},
 							],
 							activeWorkspaceId: newWorkspaceId,

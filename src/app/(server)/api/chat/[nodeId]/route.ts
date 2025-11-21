@@ -1,5 +1,6 @@
 import { streamText, UIMessage, convertToModelMessages } from "ai";
 import { google } from "@ai-sdk/google";
+import { Edge } from "@xyflow/react";
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 60;
 export async function POST(
@@ -10,13 +11,16 @@ export async function POST(
 		messages,
 		model,
 		webSearch,
+		edges,
 	}: {
 		messages: UIMessage[];
 		model: string;
 		webSearch: boolean;
+		edges: Edge[];
 	} = await req.json();
 	const { nodeId } = await params;
 	console.log("nodeId: ", nodeId);
+	console.log("edges: ", edges);
 	const result = streamText({
 		model: webSearch ? "perplexity/sonar" : google(model),
 		messages: convertToModelMessages(messages),

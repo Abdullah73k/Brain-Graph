@@ -1,5 +1,8 @@
 import { activeWorkspaceHelper } from "@/utils/store.utils";
 import { useMindMapStore } from "./store";
+import { Edge } from "@xyflow/react";
+import { UIMessage } from "ai";
+import { AppNode } from "@/types/nodes";
 
 /**
  * Custom hook which holds all actions.
@@ -26,3 +29,25 @@ export const useGetWorkspaces = () =>
 
 export const useGetCurrentRelationType = () =>
 	useMindMapStore((state) => state.currentRelationType);
+
+export const useGetSelectedNodeEdges = () => {
+	const selectedNode = useGetSelectedNode();
+	const activeWorkspace = useGetActiveWorkspace();
+
+	if (!selectedNode || !activeWorkspace) return [];
+
+	const edges = activeWorkspace.edges.filter((edge) => {
+		return edge.source === selectedNode.id || edge.target === selectedNode.id;
+	});
+	return edges as Edge[];
+};
+
+export const useGetNodeChatMessages = () => {
+	const selectedNode = useGetSelectedNode();
+	const activeWorkspace = useGetActiveWorkspace();
+
+	if (!selectedNode || !activeWorkspace) return [];
+
+	const messages = activeWorkspace.messages[selectedNode.id];
+	return messages || [];
+};

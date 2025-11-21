@@ -20,7 +20,12 @@ import { useChat } from "@ai-sdk/react";
 import { Loader } from "@/components/ai-elements/loader";
 import ChatInputTools from "./chat-input-tools";
 import ChatMessages from "./messages/chat-messages";
-import { useGetSelectedNode } from "@/store/hooks";
+import {
+	useGetNodeChatMessages,
+	useGetSelectedNode,
+	useGetSelectedNodeEdges,
+	useMindMapActions,
+} from "@/store/hooks";
 import { DefaultChatTransport } from "ai";
 
 const models = { name: "Gemini 2.0 Flash", value: "gemini-2.0-flash" };
@@ -28,16 +33,23 @@ const models = { name: "Gemini 2.0 Flash", value: "gemini-2.0-flash" };
 const Chat = () => {
 	const selectedNode = useGetSelectedNode();
 	const nodeId = selectedNode?.id as string;
+	const persistentMessages = useGetNodeChatMessages();
+	const { appendNodeChat } = useMindMapActions();
+	const edges = useGetSelectedNodeEdges();
 	const [input, setInput] = useState("");
 	const [model, setModel] = useState<string>(models.value);
 	const [webSearch, setWebSearch] = useState(false);
-	const { messages, sendMessage, status, regenerate } = useChat({
+	const { messages, sendMessage, status, regenerate, setMessages } = useChat({
 		// This 'id' prop is crucial - it forces useChat to create a new chat instance
 		// when the nodeId changes, ensuring the API URL updates correctly
 		id: nodeId,
+		messages: persistentMessages,
 		transport: new DefaultChatTransport({
 			api: `/api/chat/${nodeId}`,
 		}),
+		onFinish: () => {
+			appendNodeChat(nodeId, messages);
+		},
 	});
 	const handleSubmit = (message: PromptInputMessage) => {
 		const hasText = Boolean(message.text);
@@ -54,6 +66,7 @@ const Chat = () => {
 				body: {
 					model: model,
 					webSearch: webSearch,
+					edges,
 				},
 			}
 		);
