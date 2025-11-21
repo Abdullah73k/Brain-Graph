@@ -1,6 +1,6 @@
 import { AppNode } from "@/types/nodes";
 import { MindMapStore, MindMapWorkspace } from "@/types/store.types";
-import { applyNodeChanges, applyEdgeChanges, addEdge } from "@xyflow/react";
+import { applyNodeChanges, applyEdgeChanges } from "@xyflow/react";
 import { create } from "zustand";
 import { persist, devtools } from "zustand/middleware";
 import {
