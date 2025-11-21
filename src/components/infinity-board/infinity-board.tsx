@@ -72,6 +72,7 @@ export default function InfinityBoard() {
 					// This gives u info of the node u click on
 					onSelectionChange={({ nodes }) => {
 						const selectedNode = nodes[0] ? nodes[0] : null;
+						console.log("Selected Node: ", selectedNode);
 						setSelectedNode(selectedNode);
 						if (selectedNode && selectedNode.type === "subtopic") {
 							setIsChatBarOpen();
