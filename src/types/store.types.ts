@@ -1,6 +1,7 @@
 import { UIMessage } from "ai";
 import { AppNode } from "./nodes";
 import { Edge, NodeChange, EdgeChange, Connection } from "@xyflow/react";
+import { RelationType } from "./edges";
 
 export type MindMapWorkspace = {
 	id: string;
@@ -15,7 +16,9 @@ export type MindMapActions = {
 	setIsChatBarOpen: () => void;
 	createWorkspace: () => void;
 	deleteWorkspace: (id: string) => void;
+	deleteNode: (id: string) => void;
 
+	setCurrentRelationType: (relation: RelationType) => void;
 	setActiveWorkspace: (id: string) => void;
 	createNoteNode: () => void;
 	createSubtopicNode: () => void;
@@ -30,4 +33,5 @@ export type MindMapStore = {
 	actions: MindMapActions;
 	workspaces: MindMapWorkspace[];
 	activeWorkspaceId: string | null;
+	currentRelationType: RelationType;
 };

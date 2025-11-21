@@ -23,3 +23,6 @@ export const useGetActiveWorkspace = () =>
 
 export const useGetWorkspaces = () =>
 	useMindMapStore((state) => state.workspaces);
+
+export const useGetCurrentRelationType = () =>
+	useMindMapStore((state) => state.currentRelationType);
