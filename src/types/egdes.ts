@@ -1,11 +1,14 @@
 import { Edge } from "@xyflow/react";
 
-type RelationType =
-	| "refines"
-	| "synthesizes"
-	| "supports"
-	| "challenges"
-	| "background";
+export const relations = [
+	"refines",
+	"synthesizes",
+	"supports",
+	"challenges",
+	"background",
+] as const;
+
+export type RelationType = (typeof relations)[number];
 
 export type MindMapEdge = Edge & {
 	data: {

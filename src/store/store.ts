@@ -11,16 +11,20 @@ import {
 export const useMindMapStore = create<MindMapStore>()(
 	persist(
 		(set, get) => ({
-			selectedNode: null as AppNode | null,
+			selectedNode: null,
 			isChatBarOpen: false,
 			workspaces: [],
 			activeWorkspaceId: null,
+			currentRelationType: "background",
 			actions: {
-				setSelectedNode(node: AppNode | null) {
+				setSelectedNode(node) {
 					set({ selectedNode: node });
 				},
 				setIsChatBarOpen() {
 					set((state) => ({ isChatBarOpen: !state.isChatBarOpen }));
+				},
+				setCurrentRelationType(relation) {
+					set({ currentRelationType: relation });
 				},
 				deleteNode(id) {
 					const state = get();
@@ -161,13 +165,21 @@ export const useMindMapStore = create<MindMapStore>()(
 
 					if (!activeWorkspace) return;
 
-					const edgesSnapshot = activeWorkspace.edges;
+					const relationType = state.currentRelationType;
 
-					const updatedEdges = addEdge(connection, edgesSnapshot);
+					const newEdge = {
+						id: crypto.randomUUID(),
+						source: connection.source,
+						target: connection.target,
+						sourceHandle: connection.sourceHandle,
+						targetHandle: connection.targetHandle,
+						type: "mindmap",
+						data: { relationType },
+					};
 
 					const updatedWorkspace = {
 						...activeWorkspace,
-						edges: updatedEdges,
+						edges: [...activeWorkspace.edges, newEdge],
 					} as MindMapWorkspace;
 
 					set({
