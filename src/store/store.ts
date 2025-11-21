@@ -55,6 +55,8 @@ export const useMindMapStore = create<MindMapStore>()(
 						if (!activeWorkspace) return;
 						const nodesSnapshot = activeWorkspace.nodes;
 						const updatedNodes = nodesSnapshot.filter((node) => node.id !== id);
+						const messagesToFilter = { ...activeWorkspace.messages };
+						delete messagesToFilter[id];
 						set({
 							workspaces: updateWorkspaceHelper(state, {
 								...activeWorkspace,
@@ -62,6 +64,7 @@ export const useMindMapStore = create<MindMapStore>()(
 								edges: activeWorkspace.edges.filter(
 									(edge) => edge.source !== id && edge.target !== id
 								),
+								messages: messagesToFilter,
 							}),
 						});
 					},

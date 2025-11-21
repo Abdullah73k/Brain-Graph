@@ -39,18 +39,20 @@ const Chat = () => {
 	const [input, setInput] = useState("");
 	const [model, setModel] = useState<string>(models.value);
 	const [webSearch, setWebSearch] = useState(false);
-	const { messages, sendMessage, status, regenerate, setMessages } = useChat({
-		// This 'id' prop is crucial - it forces useChat to create a new chat instance
-		// when the nodeId changes, ensuring the API URL updates correctly
-		id: nodeId,
-		messages: persistentMessages,
-		transport: new DefaultChatTransport({
-			api: `/api/chat/${nodeId}`,
-		}),
-		onFinish: () => {
-			appendNodeChat(nodeId, messages);
-		},
-	});
+	const { messages, sendMessage, status, regenerate, setMessages, stop } =
+		useChat({
+			// This 'id' prop is crucial - it forces useChat to create a new chat instance
+			// when the nodeId changes, ensuring the API URL updates correctly
+			id: nodeId,
+			messages: persistentMessages,
+			transport: new DefaultChatTransport({
+				api: `/api/chat/${nodeId}`,
+			}),
+			onFinish: ({ messages }) => {
+				appendNodeChat(nodeId, messages);
+				console.log("messages", messages);
+			},
+		});
 	const handleSubmit = (message: PromptInputMessage) => {
 		const hasText = Boolean(message.text);
 		const hasAttachments = Boolean(message.files?.length);
