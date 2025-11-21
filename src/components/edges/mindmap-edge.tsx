@@ -1,5 +1,14 @@
 import { type MindMapEdge } from "@/types/egdes";
-import { BaseEdge, EdgeProps, getStraightPath } from "@xyflow/react";
+import { BezierEdge, EdgeProps } from "@xyflow/react";
+
+export const COLORS = {
+	refines: "#3b82f6", // blue
+	synthesizes: "#a855f7", // purple
+	supports: "#22c55e", // green
+	challenges: "#ef4444", // red
+	background: "#64748b", // slate/muted
+} as const;
+
 
 export default function MindMapEdge({
 	id,
@@ -7,35 +16,27 @@ export default function MindMapEdge({
 	sourceY,
 	targetX,
 	targetY,
+	sourcePosition,
+	targetPosition,
 	data,
 }: EdgeProps<MindMapEdge>) {
 	const relation = data?.relationType ?? "background";
 
-	const colors = {
-		refines: "#3b82f6", // blue
-		synthesizes: "#a855f7", // purple
-		supports: "#22c55e", // green
-		challenges: "#ef4444", // red
-		background: "#64748b", // slate/muted
-	};
-
-	const [edgePath] = getStraightPath({
-		sourceX,
-		sourceY,
-		targetX,
-		targetY,
-	});
-
 	return (
-		<BaseEdge
+		<BezierEdge
 			id={id}
+			sourceX={sourceX}
+			sourceY={sourceY}
+			targetX={targetX}
+			targetY={targetY}
+			sourcePosition={sourcePosition}
+			targetPosition={targetPosition}
 			style={{
-				stroke: colors[relation],
+				stroke: COLORS[relation],
 				strokeWidth: 2,
 				strokeDasharray: relation === "background" ? "3 3" : "none",
 			}}
 			markerEnd="url(#arrow)"
-			path={edgePath}
 		/>
 	);
 }
