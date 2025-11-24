@@ -1,4 +1,4 @@
-import { AppNode } from "@/types/nodes";
+import { AppNode, RootNode } from "@/types/nodes";
 import { MindMapStore, MindMapWorkspace } from "@/types/store.types";
 import { applyNodeChanges, applyEdgeChanges } from "@xyflow/react";
 import { create } from "zustand";
@@ -32,12 +32,36 @@ export const useMindMapStore = create<MindMapStore>()(
 						set({ currentRelationType: relation });
 					},
 					createNodeChatSummary(nodeId, summary) {},
+					setRootNodeTitle(event) {
+						const state = get();
+						const activeWorkspace = activeWorkspaceHelper(state);
+						if (!activeWorkspace) return;
+
+						const activeWorkspaceRootNode = activeWorkspace.nodes.filter(
+							(node) => node.type === "root"
+						)[0];
+						const updatedRootNode: RootNode = {
+							...activeWorkspaceRootNode,
+							data: {
+								...activeWorkspaceRootNode.data,
+								title: event.target.value,
+							},
+						};
+						const updatedWorkspace: MindMapWorkspace = {
+							...activeWorkspace,
+							nodes: activeWorkspace.nodes.map((node) =>
+								node.id === activeWorkspaceRootNode.id ? updatedRootNode : node
+							),
+						};
+
+						set({ workspaces: updateWorkspaceHelper(state, updatedWorkspace) });
+					},
 					appendNodeChat(nodeId, messages) {
 						const state = get();
 						if (state.workspaces.length === 0) return;
 						const activeWorkspace = activeWorkspaceHelper(state);
 						if (!activeWorkspace) return;
-						const updatedWorkspace = {
+						const updatedWorkspace: MindMapWorkspace = {
 							...activeWorkspace,
 							messages: {
 								...activeWorkspace.messages,

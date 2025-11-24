@@ -1,8 +1,6 @@
 import { activeWorkspaceHelper } from "@/utils/store.utils";
 import { useMindMapStore } from "./store";
 import { Edge } from "@xyflow/react";
-import { UIMessage } from "ai";
-import { AppNode } from "@/types/nodes";
 
 /**
  * Custom hook which holds all actions.
@@ -51,3 +49,16 @@ export const useGetNodeChatMessages = () => {
 	const messages = activeWorkspace.messages[selectedNode.id];
 	return messages || [];
 };
+
+export const useGetRootNodeTitle = () => {
+	const activeWorkspace = useGetActiveWorkspace();
+
+	if (!activeWorkspace) return "Error";
+
+	const rootNode = activeWorkspace.nodes.filter((node) => node.type === "root")
+
+	const rootNodeTitle = rootNode[0].data.title
+
+	return rootNodeTitle
+}
+	

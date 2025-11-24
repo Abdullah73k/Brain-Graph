@@ -2,6 +2,7 @@ import { UIMessage } from "ai";
 import { AppNode } from "./nodes";
 import { Edge, NodeChange, EdgeChange, Connection } from "@xyflow/react";
 import { RelationType } from "./edges";
+import { ChangeEvent } from "react";
 
 export type MindMapWorkspace = {
 	id: string;
@@ -19,6 +20,7 @@ export type MindMapActions = {
 	deleteWorkspace: (id: string) => void;
 	deleteNode: (id: string) => void;
 
+	setRootNodeTitle: (event: ChangeEvent<HTMLInputElement>) => void;
 	createNodeChatSummary: (nodeId: string, summary: string) => void;
 	appendNodeChat: (nodeId: string, messages: UIMessage[]) => void;
 	closeChatBar: () => void;

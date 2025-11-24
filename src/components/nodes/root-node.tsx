@@ -5,6 +5,7 @@ import { Handle, Position, type NodeProps } from "@xyflow/react";
 import type { RootNode } from "@/types/nodes";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { useGetRootNodeTitle, useMindMapActions } from "@/store/hooks";
 
 /**
  * Root Node Component
@@ -20,8 +21,7 @@ import { cn } from "@/lib/utils";
  * Data contract: Uses data.title (unchanged)
  */
 export function RootNode({ data, selected }: NodeProps<RootNode>) {
-	const [title, setTitle] = useState(data.title);
-
+	const { setRootNodeTitle } = useMindMapActions();
 	return (
 		<div
 			className={cn(
@@ -31,12 +31,9 @@ export function RootNode({ data, selected }: NodeProps<RootNode>) {
 		>
 			{/* Main title input - prominent and centered */}
 			<Input
-				value={title}
+				value={data.title}
 				onChange={(event) => {
-					const nextTitle = event.target.value;
-					setTitle(nextTitle);
-					// Later we can sync with React Flow by calling a callback like:
-					// data.onTitleChange?.(nextTitle);
+					setRootNodeTitle(event);
 				}}
 				className="w-full bg-transparent px-0 text-center text-base font-semibold text-neutral-800 border-none focus:outline-none focus:ring-0 h-auto"
 				placeholder="Root topic"
