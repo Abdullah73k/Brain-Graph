@@ -20,7 +20,15 @@ export type MindMapActions = {
 	deleteWorkspace: (id: string) => void;
 	deleteNode: (id: string) => void;
 
-	setSubTopicNodeTitle: (event: ChangeEvent<HTMLInputElement>, id: string) => void;
+	setNoteNodeTitle: (event: ChangeEvent<HTMLInputElement>, id: string) => void;
+	setNoteNodeDescription: (
+		event: ChangeEvent<HTMLTextAreaElement>,
+		id: string
+	) => void;
+	setSubTopicNodeTitle: (
+		event: ChangeEvent<HTMLInputElement>,
+		id: string
+	) => void;
 	setRootNodeTitle: (event: ChangeEvent<HTMLInputElement>) => void;
 	createNodeChatSummary: (nodeId: string, summary: string) => void;
 	appendNodeChat: (nodeId: string, messages: UIMessage[]) => void;

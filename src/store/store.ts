@@ -1,4 +1,4 @@
-import { AppNode, RootNode, SubtopicNode } from "@/types/nodes";
+import { AppNode, NoteNode, RootNode, SubtopicNode } from "@/types/nodes";
 import { MindMapStore, MindMapWorkspace } from "@/types/store.types";
 import { applyNodeChanges, applyEdgeChanges } from "@xyflow/react";
 import { create } from "zustand";
@@ -32,6 +32,62 @@ export const useMindMapStore = create<MindMapStore>()(
 						set({ currentRelationType: relation });
 					},
 					createNodeChatSummary(nodeId, summary) {},
+					setNoteNodeDescription(event, id) {
+						const state = get();
+						const activeWorkspace = activeWorkspaceHelper(state);
+						if (!activeWorkspace) return;
+
+						const noteNode = activeWorkspace.nodes.find(
+							(node) => node.id === id
+						) as NoteNode;
+
+						if (!noteNode) return;
+
+						const updatedNoteNode: NoteNode = {
+							...noteNode,
+							data: {
+								...noteNode.data,
+								description: event.target.value,
+							},
+						};
+
+						const updatedWorkspace: MindMapWorkspace = {
+							...activeWorkspace,
+							nodes: activeWorkspace.nodes.map((node) =>
+								node.id === id ? updatedNoteNode : node
+							),
+						};
+
+						set({ workspaces: updateWorkspaceHelper(state, updatedWorkspace) });
+					},
+					setNoteNodeTitle(event, id) {
+						const state = get();
+						const activeWorkspace = activeWorkspaceHelper(state);
+						if (!activeWorkspace) return;
+
+						const noteNode = activeWorkspace.nodes.find(
+							(node) => node.id === id
+						) as NoteNode;
+
+						if (!noteNode) return;
+
+						const updatedNoteNode: NoteNode = {
+							...noteNode,
+							data: {
+								...noteNode.data,
+								title: event.target.value,
+							},
+						};
+
+						const updatedWorkspace: MindMapWorkspace = {
+							...activeWorkspace,
+							nodes: activeWorkspace.nodes.map((node) =>
+								node.id === id ? updatedNoteNode : node
+							),
+						};
+
+						set({ workspaces: updateWorkspaceHelper(state, updatedWorkspace) });
+					},
 					setSubTopicNodeTitle(event, id) {
 						const state = get();
 						const activeWorkspace = activeWorkspaceHelper(state);

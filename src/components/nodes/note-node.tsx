@@ -6,6 +6,7 @@ import type { NoteNode } from "@/types/nodes";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { useMindMapActions } from "@/store/hooks";
 
 /**
  * Note Node Component
@@ -20,10 +21,10 @@ import { cn } from "@/lib/utils";
  *
  * Data contract: Uses data.title and data.description (both preserved and always displayed)
  */
-export function NoteNode({ data, selected }: NodeProps<NoteNode>) {
+export function NoteNode({ id, data, selected }: NodeProps<NoteNode>) {
 	const [title, setTitle] = useState(data.title);
 	const [description, setDescription] = useState(data.description);
-
+	const { setNoteNodeTitle, setNoteNodeDescription } = useMindMapActions();
 	return (
 		<div
 			className={cn(
@@ -36,11 +37,9 @@ export function NoteNode({ data, selected }: NodeProps<NoteNode>) {
 			{/* Header area with title - similar to "output" label in reference */}
 			<div className="mb-3 pb-2 border-b border-neutral-100">
 				<Input
-					value={title}
+					value={data.title}
 					onChange={(event) => {
-						const nextTitle = event.target.value;
-						setTitle(nextTitle);
-						// Syncing back to React Flow can be added later, e.g. data.onTitleChange?.(nextTitle);
+						setNoteNodeTitle(event, id);
 					}}
 					className="w-full bg-transparent text-sm font-medium text-neutral-800 border-none focus:outline-none focus:ring-0 px-0 h-auto"
 					placeholder="Note title"
@@ -51,11 +50,9 @@ export function NoteNode({ data, selected }: NodeProps<NoteNode>) {
 			{/* Body area with description - always visible */}
 			<div className="flex-1">
 				<Textarea
-					value={description}
+					value={data.description}
 					onChange={(event) => {
-						const nextDescription = event.target.value;
-						setDescription(nextDescription);
-						// Likewise, we could later call data.onDescriptionChange?.(nextDescription);
+						setNoteNodeDescription(event, id);
 					}}
 					className="min-h-[100px] w-full resize-none bg-transparent text-xs text-neutral-600 border-none focus:outline-none focus:ring-0 px-0 leading-relaxed"
 					placeholder="Add description..."
