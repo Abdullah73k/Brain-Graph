@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { Handle, Position, type NodeProps } from "@xyflow/react";
 import type { SubtopicNode } from "@/types/nodes";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { useMindMapActions } from "@/store/hooks";
 
 /**
  * Subtopic Node Component
@@ -19,12 +19,8 @@ import { cn } from "@/lib/utils";
  *
  * Data contract: Uses data.title (preserved)
  */
-export function SubtopicNode({
-	data,
-	selected,
-}: NodeProps<SubtopicNode>) {
-	const [title, setTitle] = useState(data.title);
-
+export function SubtopicNode({ id, data, selected }: NodeProps<SubtopicNode>) {
+	const { setSubTopicNodeTitle } = useMindMapActions();
 	return (
 		<div
 			className={cn(
@@ -36,11 +32,9 @@ export function SubtopicNode({
 		>
 			{/* Title input - centered */}
 			<Input
-				value={title}
+				value={data.title}
 				onChange={(event) => {
-					const nextTitle = event.target.value;
-					setTitle(nextTitle);
-					// Hook up to a flow-level updater later, e.g. data.onTitleChange?.(nextTitle);
+					setSubTopicNodeTitle(event, id);
 				}}
 				className="w-full bg-transparent text-center text-sm font-medium text-neutral-800 border-none focus:outline-none focus:ring-0 px-0 h-auto"
 				placeholder="Subtopic"

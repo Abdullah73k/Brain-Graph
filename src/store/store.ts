@@ -1,4 +1,4 @@
-import { AppNode, RootNode } from "@/types/nodes";
+import { AppNode, RootNode, SubtopicNode } from "@/types/nodes";
 import { MindMapStore, MindMapWorkspace } from "@/types/store.types";
 import { applyNodeChanges, applyEdgeChanges } from "@xyflow/react";
 import { create } from "zustand";
@@ -32,6 +32,34 @@ export const useMindMapStore = create<MindMapStore>()(
 						set({ currentRelationType: relation });
 					},
 					createNodeChatSummary(nodeId, summary) {},
+					setSubTopicNodeTitle(event, id) {
+						const state = get();
+						const activeWorkspace = activeWorkspaceHelper(state);
+						if (!activeWorkspace) return;
+
+						const subtopicNode = activeWorkspace.nodes.find(
+							(node) => node.id === id
+						) as SubtopicNode;
+
+						if (!subtopicNode) return;
+
+						const updatedSubtopicNode: SubtopicNode = {
+							...subtopicNode,
+							data: {
+								...subtopicNode.data,
+								title: event.target.value,
+							},
+						};
+
+						const updatedWorkspace: MindMapWorkspace = {
+							...activeWorkspace,
+							nodes: activeWorkspace.nodes.map((node) =>
+								node.id === id ? updatedSubtopicNode : node
+							),
+						};
+
+						set({ workspaces: updateWorkspaceHelper(state, updatedWorkspace) });
+					},
 					setRootNodeTitle(event) {
 						const state = get();
 						const activeWorkspace = activeWorkspaceHelper(state);
